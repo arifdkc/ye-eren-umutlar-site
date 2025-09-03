@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+        <section class="messages-section">
+            <h2> Giden Mesajlar</h2>
+            <ul class="message-list">
+                <% messages.forEach(msg => { %>
+                    <li class="message-item">
+                        <strong>gönderen: <%= msg.name %>: alıcı  : <%= msg.receiver.name %></strong> <%= msg.text %>
+
+                       
+                          <form action="/messages/<%= msg._id %>/delete" method="POST" class="delete-form">
+                                <button type="submit" class="delete-button" onclick="return confirm('Bu mesajı silmek istediğinize emin misiniz?')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        
+                    </li>
+                <% }) %>
+            </ul>
+        </section>
+</body>
+</html>

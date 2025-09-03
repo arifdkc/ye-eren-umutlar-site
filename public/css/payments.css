@@ -1,0 +1,171 @@
+/* Genel Stil Ayarları */
+body {
+    background-color: #f4f7f9;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+}
+
+/* Başlık ve Alt Başlıklar */
+.payment-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.payment-header h1 {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.payment-header p {
+    font-size: 1.1em;
+    color: #7f8c8d;
+}
+
+/* Tablo Stili */
+.payment-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.payment-table th,
+.payment-table td {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.payment-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #555;
+}
+
+.payment-table th i {
+    margin-right: 8px;
+    color: #3498db;
+}
+
+/* Durum Sütunu Stilleri */
+.payment-status {
+    font-weight: 500;
+}
+
+.status-paid {
+    color: #27ae60;
+}
+
+.status-unpaid {
+    color: #e74c3c;
+}
+
+.payment-status i {
+    margin-right: 8px;
+}
+
+/* Yönetici İşlem Sütunu Stili */
+.payment-action {
+    white-space: nowrap;
+}
+
+.payment-action form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-select {
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 0.9em;
+}
+
+.btn-update {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-update:hover {
+    background-color: #2980b9;
+}
+
+/* Boş Tablo Mesajı */
+.empty-table-message {
+    text-align: center;
+    color: #95a5a6;
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Mobil için Responsive Tasarım (Card-based table) */
+@media (max-width: 768px) {
+    .payment-table,
+    .payment-table thead,
+    .payment-table tbody,
+    .payment-table th,
+    .payment-table td,
+    .payment-table tr {
+        display: block;
+    }
+
+    .payment-table thead {
+        display: none;
+    }
+
+    .payment-table tr {
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    .payment-table td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+        font-size: 0.9em;
+    }
+
+    .payment-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 45%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .payment-action form {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    
+    .status-select {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

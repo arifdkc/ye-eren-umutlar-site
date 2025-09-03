@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= student.name %> - Ödeme Planı | Yeni Umutlar Anaokulu</title>
+    <meta name="description" content="<%= student.name %>'in Özel Bursa Yeni Umutlar Anaokulu'ndaki ödeme planını görüntüleyin ve yönetin.">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/css/studentPayments.css"> 
+</head>
+<body>
+    <main class="main-container container">
+        <header class="page-header">
+            <h1><%= student.name %> - Ödeme Planı</h1>
+            <h3>Sınıf: <%= student.className %></h3>
+        </header>
+
+        <% if (user.role === 'admin') { %>
+            <section class="card add-payment-section">
+                <h2><i class="fas fa-plus-circle"></i> Yeni Ödeme Ekle</h2>
+                <form action="/admin/student-payments/add" method="POST" class="add-payment-form">
+                    <input type="hidden" name="studentId" value="<%= student._id %>">
+
+                    <div class="form-group">
+                        <label for="month">Ay:</label>
+                        <input type="month" name="month" id="month" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount">Tutar (TL):</label>
+                        <input type="number" name="amount" id="amount" required min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dueDate">Son Ödeme Tarihi:</label>
+                        <input type="date" name="dueDate" id="dueDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Durum:</label>
+                        <select name="status" id="status" required>
+                            <option value="paid">Ödendi</option>
+                            <option value="unpaid">Ödenmedi</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Ekle</button>
+                </form>
+            </section>
+        <% } %>
+
+        <section class="card payment-details-section">
+            <div class="table-responsive">
+                <table class="payment-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-calendar-alt"></i> Ay</th>
+                            <th><i class="fas fa-lira-sign"></i> Tutar</th>
+                            <th><i class="fas fa-info-circle"></i> Durum</th>
+                            <th><i class="fas fa-calendar-day"></i> Son Ödeme Tarihi</th>
+                            <% if (user.role === 'admin') { %>
+                                <th><i class="fas fa-cogs"></i> İşlem</th>
+                            <% } %>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(payments.length === 0) { %>
+                            <tr>
+                                <td colspan="<%= user.role === 'admin' ? 5 : 4 %>" class="empty-table-message">Henüz ödeme eklenmemiş.</td>
+                            </tr>
+                        <% } else { %>
+                            <% payments.forEach(payment => { %>
+                                <tr>
+                                    <td data-label="Ay"><%= new Date(payment.month).toLocaleString('tr-TR', { month: 'long', year: 'numeric' }) %></td>
+                                    <td data-label="Tutar"><%= payment.amount %> TL</td>
+                                    <td data-label="Durum" class="status-cell status-<%= payment.status %>">
+                                        <i class="fas <%= payment.status === 'paid' ? 'fa-check-circle' : 'fa-times-circle' %>"></i>
+                                        <%= payment.status === 'paid' ? 'Ödendi' : 'Ödenmedi' %>
+                                    </td>
+                                    <td data-label="Son Ödeme Tarihi"><%= new Date(payment.dueDate).toLocaleDateString('tr-TR') %></td>
+                                    <% if(user.role === 'admin') { %>
+                                        <td data-label="İşlem" class="action-cell">
+                                            <form action="/admin/student-payments/<%= payment._id %>/update" method="POST">
+                                                <select name="status" class="status-select">
+                                                    <option value="paid" <%= payment.status === 'paid' ? 'selected' : '' %>>Ödendi</option>
+                                                    <option value="unpaid" <%= payment.status === 'unpaid' ? 'selected' : '' %>>Ödenmedi</option>
+                                                </select>
+                                                <button type="submit" class="btn btn-update"><i class="fas fa-edit"></i> Güncelle</button>
+                                            </form>
+                                        </td>
+                                    <% } %>
+                                </tr>
+                            <% }) %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

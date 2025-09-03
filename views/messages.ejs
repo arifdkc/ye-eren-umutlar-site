@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesajlar | Yeni Umutlar Anaokulu</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/css/message.css"> 
+</head>
+<body>
+    <div class="container">
+        <h2>Mesaj Gönder</h2>
+        <form action="/messages" method="POST" class="message-form">
+            <select name="receiverId" required>
+                <% students.forEach(student => { %>
+                    <option value="<%= student._id %>"><%= student.name %> (<%= student.className %>)</option>
+                <% }) %>
+            </select>
+            <textarea name="text" placeholder="Mesajınız..." required></textarea>
+            <button type="submit">Gönder</button>
+        </form>
+
+        <section class="messages-section">
+            <h2> Giden Mesajlar</h2>
+            <ul class="message-list">
+                <% messages.forEach(msg => { %>
+                    <li class="message-item">
+                        <strong><%= msg.name %>: <%= msg.receiver.name %></strong> <%= msg.text %>
+
+                        <% // Silme butonu yetkili kullanıcılar için %>
+                         <form action="/messages/<%= msg._id %>/delete" method="POST" class="delete-form">
+                                <button type="submit" class="delete-button" onclick="return confirm('Bu mesajı silmek istediğinize emin misiniz?')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+
+                    </li>
+                <% }) %>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+.main-header {
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.logo img {
+    height: 80px;
+    width: 300px;
+    margin-left: 20px;
+}
+
+.mobile-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--dark-color);
+    cursor: pointer;
+}
+
+.main-nav {
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.contact-info li {
+    margin-left: 20px;
+    font-size: 0.9rem;
+}
+
+.contact-info a {
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+}
+
+.contact-info i {
+    margin-right: 5px;
+    font-size: 0.9rem;
+}
+
+.social-icons {
+    display: flex;
+}
+
+.social-icons a {
+    margin-left: 10px;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.social-icons a:hover {
+    color: var(--secondary-color);
+}
+
+.nav-links {
+    display: flex;
+    margin-left: 50px;
+}
+
+.nav-links li {
+    margin-left: 25px;
+}
+
+.nav-links a {
+    color: var(--dark-color);
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-links a:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.nav-links a:hover:after {
+    width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mobile-menu-button {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 90px;
+    
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 110px;
+        left: -100%;
+        width: 80%;
+        height: calc(100vh - 110px);
+        background-color: var(--white);
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+        z-index: 999;
+    }
+    
+    .main-nav.active {
+        left: 0;
+    }
+    
+    .contact-info {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        margin-left: 10px;
+    }
+    
+    .contact-info li {
+        margin: 10px 0;
+    }
+    
+    .social-icons {
+        margin-top: 10px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+    }
+    
+    .nav-links li {
+        margin: 10px 0;
+    }
+    
+  
+
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <%- include("partials/head") %>
+        <link rel="stylesheet" href="/css/user.css">
+</head>
+
+<body>
+    <%- include("partials/navbar") %>
+
+        <main class="panel-container container">
+            <header class="user-header">
+                <div class="profile-image-container">
+                    <img src="/uploads/<%= user.profileImage %>" alt="<%= user.name %> profil resmi">
+                </div>
+                <h1>Hoş geldin, <%= user.name %>!</h1>
+            </header>
+
+            <section class="card user-dashboard">
+             
+                <ul class="user-options-list">
+                    <li>
+                        <a href="/messages/<%= user.id %>">
+                            <i class="fas fa-envelope"></i> Mesajlar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/payments/<%= user.id %>">
+                            <i class="fas fa-wallet"></i> Ödeme Planını Görüntüle
+                        </a>
+                    </li>
+                   
+                </ul>
+            </section>
+
+         
+
+            <section class="card announcements-section image-announcements">
+                <h2>Duyurular</h2>
+                <ul class="announcement-list">
+                    <% if (announcementsIMG.length> 0) { %>
+                        <% announcementsIMG.forEach(a=> { %>
+                            <li class="announcement-item image-item">
+                                <div class="announcement-content">
+                                    <strong>
+                                        <%= a.title %>
+                                    </strong>
+                                    <p>
+                                        <%= a.description %>
+                                    </p>
+                                    <% if(a.image){ %>
+                                        <div class="announcement-image-container">
+                                            <img src="/uploads/<%= a.image %>" alt="<%= a.title %>">
+                                        </div>
+                                        <% } %>
+                                </div>
+                                <% if(user.role==='admin' && user.role==='moderator' ){ %>
+                                    <form action="/announcementIMG/<%= a._id %>" method="POST" class="delete-form">
+                                        <button type="submit" class="delete-button"
+                                            onclick="return confirm('Bu görselli duyuruyu silmek istediğine emin misin?')">
+                                            <i class="fas fa-trash-alt"></i> Sil
+                                        </button>
+                                    </form>
+                                    <% } %>
+                            </li>
+                            <% }) %>
+                                <% } else { %>
+                                    <p class="no-content">Henüz etkinlik görseli yayınlanmadı.</p>
+                                    <% } %>
+                </ul>
+            </section>
+        </main>
+
+        <%- include("partials/footer") %>
+            <script src="/js/scripts.js"></script>
+            <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
