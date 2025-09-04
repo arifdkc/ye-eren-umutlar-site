@@ -1,29 +1,11 @@
-/* Genel Ayarlar ve Fontlar */
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f0f4f8;
-    color: #34495e;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-}
 
-.container {
+.message-container {
     max-width: 800px;
     margin: 30px auto;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    font-family: 'Roboto Slab', serif;
-    color: #007bff;
-    text-align: center;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #e9ecef;
-    margin-bottom: 25px;
 }
 
 /* Form Stili */

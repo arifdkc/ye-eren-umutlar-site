@@ -27,7 +27,9 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
+exports.getLoginPage = (req, res) => {
+  res.render("login", { title: "Yeni Umutlar Anaokulu" });
+} ;
 // --- Yeni kullanıcı ekle (default user) ---
 exports.addUser = async (req, res) => {
   const { name, email, password, role, className } = req.body;

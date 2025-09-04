@@ -1,0 +1,248 @@
+:root {
+    --primary-color: #1e3a5f;
+    --secondary-color: #669bbc;
+    --accent-color: #ffe66d;
+    --dark-color: #292f36;
+    --light-color: #f7fff7;
+    --text-color: #333;
+    --text-light: #666;
+    --white: #fff;
+    --gray-light: #f5f5f5;
+    --transition: all 0.3s ease;
+    --bg1-color: #1e3a5f;
+    --bg2-color: #669bbc;
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-title: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* Hero Bölümü */
+.contact-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+    margin-top: 80px;
+    justify-content: center;
+}
+
+.contact-hero h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+    font-family: var(--font-title);
+    color: var(--light-color);
+}
+
+.contact-hero p {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+/* İletişim Bölümü */
+.contact-section {
+    padding: 80px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+}
+
+.contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+.container-contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-card {
+    display: flex;
+    width: 330px;
+    height: 200px;
+    background: white;
+    align-items: flex-start;
+    justify-content: center;
+
+
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.info-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.info-content h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--dark-color);
+    margin: 20px;
+}
+
+.info-content p,
+.info-content a {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 5px;
+    text-decoration: none;
+    display: block;
+
+}
+
+.info-content a:hover {
+    color: var(--primary-color);
+}
+
+/* İletişim Formu */
+.contact-form {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.contact-form h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    font-family: var(--font-title);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: var(--font-main);
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Harita Bölümü */
+.map-section {
+    padding: 60px 0;
+    background: #f9f9f9;
+}
+
+.map-section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+    color: var(--primary-color);
+    font-family: var(--font-title);
+}
+
+.map-container {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul {
+        margin-top: 20px;
+        justify-content: center;
+    }
+
+    nav ul li {
+        margin: 0 10px;
+    }
+
+    .hero {
+        height: 400px;
+        text-align: center;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+
+    .hero-content h2 {
+        font-size: 36px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact {
+        grid-template-columns: 1fr;
+    }
+
+    .info-card {
+        width: 90%;
+        height: 230px;
+        margin: 0 auto;
+    }
+
+    .info-card p {
+        padding: 10px;
+    }
+
+    .map-container {
+        width: 100%;
+        height: 300px;
+    }
+}

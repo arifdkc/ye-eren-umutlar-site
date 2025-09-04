@@ -1,26 +1,4 @@
-/* Genel Stil Ayarları */
-body {
-    background-color: #f4f7f9;
-    font-family: 'Poppins', sans-serif;
-    color: #333;
-    line-height: 1.6;
-    margin: 0;
-    padding: 20px;
-}
 
-.main-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.card {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-    padding: 30px;
-    margin-bottom: 25px;
-}
 
 /* Başlık ve Alt Başlıklar */
 .page-header {

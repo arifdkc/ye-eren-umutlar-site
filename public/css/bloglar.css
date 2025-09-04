@@ -1,0 +1,254 @@
+
+/* Blog Hero Section */
+.blog-hero {
+    background: linear-gradient(135deg, var(--bg1-color), var(--bg2-color));
+    color: var(--white);
+    padding: 30px 0;
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top:50px ;
+}
+
+.blog-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: var(--white);
+}
+
+.blog-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Blog Content */
+.blog-content {
+    padding: 40px 0;
+}
+
+.blog-article {
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+    margin-bottom: 40px;
+}
+
+.featured-image {
+    margin-bottom: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.featured-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: var(--transition);
+}
+
+.featured-image:hover img {
+    transform: scale(1.02);
+}
+
+.article-section {
+    margin-bottom: 30px;
+}
+
+.article-section h2 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--gray-light);
+    margin-bottom: 20px;
+}
+
+.article-section h3 {
+    font-size: 1.4rem;
+    color: var(--secondary-color);
+    margin-top: 30px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.article-section h3 i {
+    margin-right: 10px;
+}
+
+.article-section p {
+    margin-bottom: 15px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.styled-list {
+    margin: 20px 0;
+}
+
+.styled-list li {
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+    font-size: 1.05rem;
+}
+
+.styled-list i {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    color: var(--primary-color);
+}
+
+.conclusion {
+    background-color: rgba(255, 107, 107, 0.1);
+    padding: 30px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.conclusion h2 {
+    border-bottom: none;
+}
+
+.feature-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.feature-box {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+    border-top: 3px solid var(--secondary-color);
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-box i {
+    font-size: 2rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.feature-box h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--dark-color);
+}
+
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .blog-title {
+        font-size: 2rem;
+    }
+    
+    .blog-article {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-button {
+        display: block;
+    }
+    
+    .main-nav {
+        position: fixed;
+        top: 110px;
+        left: -100%;
+        width: 80%;
+        height: calc(100vh - 110px);
+        background-color: var(--white);
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+        z-index: 999;
+    }
+    
+    .main-nav.active {
+        left: 0;
+    }
+    
+    .contact-info {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 20px;
+    }
+    
+    .contact-info li {
+        margin: 10px 0;
+    }
+    
+    .social-icons {
+        margin-top: 10px;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+    }
+    
+    .nav-links li {
+        margin: 10px 0;
+    }
+    
+    .blog-hero {
+        padding: 60px 0;
+    }
+    
+    .blog-title {
+        font-size: 1.8rem;
+    }
+    
+    .blog-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .blog-article {
+        padding: 25px;
+    }
+    
+    .article-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .article-section h3 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .blog-hero {
+        padding: 50px 0;
+    }
+    
+    .blog-title {
+        font-size: 1.6rem;
+    }
+    
+    .blog-article {
+        padding: 20px;
+    }
+    
+    .article-section {
+        margin-bottom: 25px;
+    }
+    
+    .feature-boxes {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}

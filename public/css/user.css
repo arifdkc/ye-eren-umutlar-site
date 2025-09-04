@@ -1,13 +1,4 @@
-/* Genel Stil Ayarları */
-body {
-    background-color: #f4f7f9;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    padding-top: 20px;
-    padding-bottom: 50px;
-}
-
-.container {
+.card-container {
     max-width: 960px;
     margin: 0 auto;
     padding: 0 20px;
