@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <%- include("partials/head") %>
-    <link rel="stylesheet" href="/css/admin.css">
- </head>
+        <link rel="stylesheet" href="/css/admin.css">
+</head>
+
 <body>
     <header class="admin-header">
         <div class="container">
@@ -26,19 +28,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% user.forEach(user => { %>
+                    <% user.forEach(user=> { %>
                         <tr>
-                            <td data-label="İsim"><a href="/admin/adminPayments/<%= user._id %>"><%= user.name %></a></td>
-                            <td data-label="Sınıf"><%= user.className || '-' %></td>
-                            <td data-label="Email"><%= user.email %></td>
-                            <td data-label="Rol"><%= user.role %></td>
+                            <td data-label="İsim"><a href="/admin/adminPayments/<%= user._id %>">
+                                    <%= user.name %>
+                                </a></td>
+                            <td data-label="Sınıf">
+                                <%= user.className || '-' %>
+                            </td>
+                            <td data-label="Email">
+                                <%= user.email %>
+                            </td>
+                            <td data-label="Rol">
+                                <%= user.role %>
+                            </td>
                             <td data-label="İşlemler">
-                                <form action="/admin/delete-user/<%= user._id %>" method="POST" onsubmit="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?');" class="delete-form">
-                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Sil</button>
+                                <form action="/admin/delete-user/<%= user._id %>" method="POST"
+                                    onsubmit="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?');"
+                                    class="delete-form">
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i>
+                                        Sil</button>
                                 </form>
                             </td>
                         </tr>
-                    <% }) %>
+                        <% }) %>
                 </tbody>
             </table>
         </section>
@@ -74,10 +87,11 @@
                         <label for="className">Sınıf Adı:</label>
                         <input type="text" id="className" name="className" placeholder="Sınıf Adı" required>
                     </div>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Kullanıcı Ekle</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Kullanıcı
+                        Ekle</button>
                 </form>
             </section>
-            
+
             <section class="admin-section card">
                 <h2><i class="fas fa-bullhorn"></i> Yeni Duyuru Ekle</h2>
                 <form action="/announcementIMG" method="POST" enctype="multipart/form-data" class="admin-form">
@@ -97,12 +111,15 @@
                         <label for="part">Hedef Sınıf:</label>
                         <select name="part" id="part" required>
                             <option value="general">Genel</option>
-                            <% classes.forEach(c => { %>
-                                <option value="<%= c %>"><%= c %></option>
-                            <% }) %>
+                            <% classes.forEach(c=> { %>
+                                <option value="<%= c %>">
+                                    <%= c %>
+                                </option>
+                                <% }) %>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Duyuru Ekle</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Duyuru
+                        Ekle</button>
                 </form>
             </section>
 
@@ -124,7 +141,8 @@
     </main>
 
     <%- include("partials/footer") %>
-       <script src="/js/scripts.js"></script>
-    
+        <script src="/js/scripts.js"></script>
+
 </body>
+
 </html>
