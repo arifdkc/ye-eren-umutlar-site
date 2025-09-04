@@ -100,4 +100,37 @@ exports.deleteMessage = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+const Image = require("../models/galeri");
+
+// Çoklu resim yükleme
+exports.uploadImages = async (req, res) => {
+  try {
+    const files = req.files;
+
+    const images = await Promise.all(
+      files.map(async (file) => {
+        const newImage = new Image({
+          filename: file.filename,
+          path: file.path,
+        });
+        await newImage.save();
+        return newImage;
+      })
+    );
+  res.redirect("/moderator");
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Resim yüklenirken hata oluştu" });
+  }
+};
+
+// Tüm resimleri listeleme
+exports.getImages = async (req, res) => {
+  try {
+    const images = await Image.find().sort({ uploadedAt: -1 });
+    res.status(200).json(images);
+  } catch (err) {
+    res.status(500).json({ message: "Resimler alınırken hata oluştu" });
+  }
+};
 

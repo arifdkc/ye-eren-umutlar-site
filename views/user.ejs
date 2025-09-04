@@ -30,7 +30,20 @@
                             <i class="fas fa-wallet"></i> Ödeme Planını Görüntüle
                         </a>
                     </li>
-                   
+                    <% if (user.role === 'moderator' ) { %>
+                        <li>
+                            <a href="/moderator">
+                                <i class="fas fa-cog"></i> Moderatör Paneli
+                            </a>
+                        </li>
+                        <% } %>
+                    <% if (user.role === 'admin') { %>
+                        <li>
+                            <a href="/admin">
+                                <i class="fas fa-user-shield"></i> Yönetici Paneli
+                            </a>
+                        </li>
+                        <% } %>
                 </ul>
             </section>
 

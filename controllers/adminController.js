@@ -24,7 +24,7 @@ exports.createUser = async (req, res) => {
     });
 
     await newUser.save();
-    res.redirect("/users");
+    res.redirect("/admin");
   } catch (error) {
     console.error("Kullanıcı eklenirken hata:", error);
     res.status(500).send("Kullanıcı eklenemedi");

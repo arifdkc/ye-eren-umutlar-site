@@ -1,88 +1,154 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yönetici Paneli - Yeni Umutlar Anaokulu</title>
-    <meta name="description" content="Yeni Umutlar Anaokulu Moderatör Paneli. Duyuru ve içerik yönetimi.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/moderator.css">
+    <%- include("partials/head") %>
+        <link rel="stylesheet" href="/css/moderator.css">
+        <link rel="stylesheet" href="/css/messages.css">
 </head>
+
 <body>
-      <%- include("partials/navbar") %>
+    <%- include("partials/navbar") %>
 
-    <div class="moderator-header">
-        <div class="container">
-            <h1>Hoş geldin, <%= user.name %>!</h1>
-            <p>Moderatör Paneli</p>
+        <div class="moderator-header">
+            <div class="container">
+                <h1>Hoş geldin, <%= user.name %>!</h1>
+                <p>Moderatör Paneli</p>
+            </div>
         </div>
-    </div>
-
-    <main class="moderator-main container">
-        <section class="moderator-section card form-section">
-            <h2><i class="fas fa-edit"></i> Yeni Gönderi Paylaş</h2>
-            <form action="/announcementIMG" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="title">Başlık:</label>
-                    <input type="text" name="title" id="title" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="description">Açıklama:</label>
-                    <textarea name="description" id="description" rows="4"></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="image">Görsel:</label>
-                    <input type="file" name="image" id="image" accept="image/*">
-                </div>
-                
-                <div class="form-group">
-                    <label for="part">Hedef Sınıf:</label>
-                    <select name="part" required>
-                        <option value="general">Genel</option>
-                        <% classes.forEach(c => { %>
-                            <option value="<%= c %>"><%= c %></option>
+        <div class="container">
+            <h2>Mesaj Gönder</h2>
+            <form action="/messages" method="POST" class="message-form">
+                <select name="receiverId" required>
+                    <% students.forEach(student=> { %>
+                        <option value="<%= student._id %>">
+                            <%= student.name %> (<%= student.className %>)
+                        </option>
                         <% }) %>
-                    </select>
-                </div>
-                
-                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Gönder</button>
+                </select>
+                <textarea name="text" placeholder="Mesajınız..." required></textarea>
+                <button type="submit">Gönder</button>
             </form>
-        </section>
 
-        <div class="announcement-grid">
-       
-            <section class="moderator-section card image-announcements">
-                <h2><i class="fas fa-images"></i> Duyurular</h2>
-                <ul class="announcement-list">
-                    <% if (announcementsIMG.length > 0) { %>
-                        <% announcementsIMG.forEach(a => { %>
-                            <li class="announcement-item image-item">
-                                <div class="announcement-content">
-                                    <strong><%= a.title %></strong>
-                                    <p><%= a.description %></p>
-                                    <% if(a.image){ %>
-                                        <div class="announcement-image-container">
-                                            <img src="/uploads/<%= a.image %>" alt="<%= a.title %>">
-                                        </div>
-                                    <% } %>
-                                </div>
-                                <form action="/announcementIMG/<%= a._id %>" method="POST" class="delete-form">
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Bu görselli duyuruyu silmek istediğine emin misin?')"><i class="fas fa-trash-alt"></i></button>
-                                </form>
-                            </li>
+            <section class="messages-section">
+                <h2> Giden Mesajlar</h2>
+                <ul class="message-list">
+                    <% messages.forEach(msg=> { %>
+                        <li class="message-item">
+                            <strong>
+                                <%= msg.name %>: <%= msg.receiver.name %>
+                            </strong>
+                            <%= msg.text %>
+
+                                <% // Silme butonu yetkili kullanıcılar için %>
+                                    <form action="/messages/<%= msg._id %>/delete" method="POST" class="delete-form">
+                                        <button type="submit" class="delete-button"
+                                            onclick="return confirm('Bu mesajı silmek istediğinize emin misiniz?')">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+
+                        </li>
                         <% }) %>
-                    <% } else { %>
-                        <p class="no-content">Henüz etkinlik yayınlanmadı.</p>
-                    <% } %>
                 </ul>
             </section>
         </div>
-    </main>
-    <script src="/js/scripts.js"></script>
+         <h1>Resim Yükleme Sayfası</h1>
+
+  <!-- Çoklu resim yükleme formu -->
+  <form action="/messages/upload" method="POST" enctype="multipart/form-data">
+    <label for="images">Resim Seç (En fazla 10):</label>
+    <input type="file" id="images" name="images" accept="image/*" multiple required>
+    <button type="submit">Yükle</button>
+  </form>
+
+  <hr>
+
+  <!-- Yüklenen resimleri listeleme -->
+  <h2>Yüklenen Resimler</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+    <% if (images && images.length > 0) { %>
+      <% images.forEach(img => { %>
+        <div style="border: 1px solid #ccc; padding: 5px;">
+          <img src="/<%= img.path %>" alt="Resim" width="150">
+          <p><%= img.filename %></p>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p>Henüz resim yüklenmedi.</p>
+    <% } %>
+  </div>
+        <main class="moderator-main container">
+            <section class="moderator-section card form-section">
+                <h2><i class="fas fa-edit"></i> Yeni Gönderi Paylaş</h2>
+                <form action="/announcementIMG" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="title">Başlık:</label>
+                        <input type="text" name="title" id="title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Açıklama:</label>
+                        <textarea name="description" id="description" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">Görsel:</label>
+                        <input type="file" name="image" id="image" accept="image/*">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="part">Hedef Sınıf:</label>
+                        <select name="part" required>
+                            <option value="general">Genel</option>
+                            <% classes.forEach(c=> { %>
+                                <option value="<%= c %>">
+                                    <%= c %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Gönder</button>
+                </form>
+            </section>
+
+            <div class="announcement-grid">
+
+                <section class="moderator-section card image-announcements">
+                    <h2><i class="fas fa-images"></i> Duyurular</h2>
+                    <ul class="announcement-list">
+                        <% if (announcementsIMG.length> 0) { %>
+                            <% announcementsIMG.forEach(a=> { %>
+                                <li class="announcement-item image-item">
+                                    <div class="announcement-content">
+                                        <strong>
+                                            <%= a.title %>
+                                        </strong>
+                                        <p>
+                                            <%= a.description %>
+                                        </p>
+                                        <% if(a.image){ %>
+                                            <div class="announcement-image-container">
+                                                <img src="/uploads/<%= a.image %>" alt="<%= a.title %>">
+                                            </div>
+                                            <% } %>
+                                    </div>
+                                    <form action="/announcementIMG/<%= a._id %>" method="POST" class="delete-form">
+                                        <button type="submit" class="btn btn-danger"
+                                            onclick="return confirm('Bu görselli duyuruyu silmek istediğine emin misin?')"><i
+                                                class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                </li>
+                                <% }) %>
+                                    <% } else { %>
+                                        <p class="no-content">Henüz etkinlik yayınlanmadı.</p>
+                                        <% } %>
+                    </ul>
+                </section>
+            </div>
+        </main>
+        <script src="/js/scripts.js"></script>
 </body>
+
 </html>

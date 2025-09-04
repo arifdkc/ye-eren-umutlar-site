@@ -40,7 +40,10 @@
                                 <%= user.email %>
                             </td>
                             <td data-label="Rol">
-                                <%= user.role %>
+                                
+                                <% if (user.role === 'admin') { %> Yönetici <% } %>
+                                <% if (user.role === 'moderator') { %> Öğretmen <% } %>
+                                <% if (user.role === 'user') { %> Öğrenci <% } %>
                             </td>
                             <td data-label="İşlemler">
                                 <form action="/admin/delete-user/<%= user._id %>" method="POST"
@@ -59,7 +62,7 @@
         <div class="forms-grid">
             <section class="admin-section card">
                 <h2><i class="fas fa-user-plus"></i> Yeni Kullanıcı Ekle</h2>
-                <form action="/admin/add-user" method="POST" enctype="multipart/form-data" class="admin-form">
+                <form action="/admin/add-announcement" method="POST" enctype="multipart/form-data" class="admin-form">
                     <div class="form-group">
                         <label for="name">İsim:</label>
                         <input type="text" id="name" name="name" placeholder="İsim" required>

@@ -6,7 +6,7 @@ const path = require("path");
 const session = require("express-session");
 const WeeklyFiles = require("./models/WeeklyFiles");
 const app = express();
-
+const Image = require("./models/galeri");
 // =================== MongoDB Bağlantısı ===================
 connectDB();
 
@@ -35,6 +35,9 @@ app.use(async (req, res, next) => {
   const weeklyFiles = await WeeklyFiles.findOne().sort({ uploadedAt: -1 });
   res.locals.weeklyFiles = weeklyFiles; // Tüm view'larda erişilebilir olacak
   res.locals.user = req.session.user || null; // Tüm view'larda user bilgisine erişilebilir olacak
+  
+      const images = await Image.find().sort({ uploadedAt: -1 });
+      res.locals.images = images; // Tüm view'larda erişilebilir olacak 
   next();
 });
 
