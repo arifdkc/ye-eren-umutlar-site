@@ -1,20 +1,11 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= student.name %> - Ödeme Planı | Yeni Umutlar Anaokulu</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="/css/veli-payment-style.css"> 
+ <%- include("partials/head") %>
+    <link rel="stylesheet" href="/css/payments.css"> 
 </head> 
 <body> 
-      <%- include("partials/navbar") %>
-
+    
     <div class="container payment-plan-container">
         <header class="payment-header">
             <h1><%= student.name %> - Ödeme Planı</h1>

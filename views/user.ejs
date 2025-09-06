@@ -18,71 +18,72 @@
             </header>
 
             <section class="card user-dashboard">
-             
                 <ul class="user-options-list">
                     <li>
                         <a href="/messages/<%= user.id %>">
                             <i class="fas fa-envelope"></i> Mesajlar
                         </a>
                     </li>
-                    <li>
-                        <a href="/payments/<%= user.id %>">
-                            <i class="fas fa-wallet"></i> Ödeme Planını Görüntüle
-                        </a>
-                    </li>
-                    <% if (user.role === 'moderator' ) { %>
+                    <% if (user.role==='user' ) { %>
                         <li>
-                            <a href="/moderator">
-                                <i class="fas fa-cog"></i> Moderatör Paneli
+                            <a href="/payments/<%= user.id %>">
+                                <i class="fas fa-wallet"></i> Ödeme Planını Görüntüle
                             </a>
                         </li>
                         <% } %>
-                    <% if (user.role === 'admin') { %>
-                        <li>
-                            <a href="/admin">
-                                <i class="fas fa-user-shield"></i> Yönetici Paneli
-                            </a>
-                        </li>
-                        <% } %>
-                </ul>
-            </section>
-
-         
-
-            <section class="card announcements-section image-announcements">
-                <h2>Duyurular</h2>
-                <ul class="announcement-list">
-                    <% if (announcementsIMG.length> 0) { %>
-                        <% announcementsIMG.forEach(a=> { %>
-                            <li class="announcement-item image-item">
-                                <div class="announcement-content">
-                                    <strong>
-                                        <%= a.title %>
-                                    </strong>
-                                    <p>
-                                        <%= a.description %>
-                                    </p>
-                                    <% if(a.image){ %>
-                                        <div class="announcement-image-container">
-                                            <img src="/uploads/<%= a.image %>" alt="<%= a.title %>">
-                                        </div>
+                            <% if (user.role==='moderator' ) { %>
+                                <li>
+                                    <a href="/moderator">
+                                        <i class="fas fa-cog"></i> Moderatör Paneli
+                                    </a>
+                                </li>
+                                <% } %>
+                                    <% if (user.role==='admin' ) { %>
+                                        <li>
+                                            <a href="/admin">
+                                                <i class="fas fa-user-shield"></i> Yönetici Paneli
+                                            </a>
+                                        </li>
                                         <% } %>
-                                </div>
-                                <% if(user.role==='admin' && user.role==='moderator' ){ %>
-                                    <form action="/announcementIMG/<%= a._id %>" method="POST" class="delete-form">
-                                        <button type="submit" class="delete-button"
-                                            onclick="return confirm('Bu görselli duyuruyu silmek istediğine emin misin?')">
-                                            <i class="fas fa-trash-alt"></i> Sil
-                                        </button>
-                                    </form>
-                                    <% } %>
-                            </li>
-                            <% }) %>
-                                <% } else { %>
-                                    <p class="no-content">Henüz etkinlik görseli yayınlanmadı.</p>
-                                    <% } %>
                 </ul>
             </section>
+<% posts.forEach((post, index) => { %>
+    <div class="post-container">
+        <p class="post-text"><%= post.text %></p>
+
+        <% if (post.images.length > 0) { %>
+            <div class="slider-container">
+                <div class="slider-wrapper" id="slider-wrapper-<%= index %>">
+                    <% post.images.forEach(image => { %>
+                        <div class="slider-image-wrapper">
+                            <img src="/uploads/<%= image.filename %>" class="slider-image">
+                            <a href="/uploads/<%= image.filename %>" download class="download-button">📥 İndir</a>
+                            <% if (user.role==='moderator') { %>
+                                <form action="/moderator/delete-post/<%= post._id %>" method="POST"
+                                    onsubmit="return confirm('Bu postu silmek istediğinizden emin misiniz?');">
+                                    <button type="submit" class="delete-btn"><i class="fas fa-trash-alt"></i> Sil</button>
+                                </form>
+                            <% } %>
+                        </div>
+                    <% }) %>
+                </div>
+
+                <% if (post.images.length > 1) { %>
+                    <button class="slider-nav-button prev" onclick="moveSlider(-1, '<%= index %>')">
+                        <span class="arrow">&#10094;</span>
+                    </button>
+                    <button class="slider-nav-button next" onclick="moveSlider(1, '<%= index %>')">
+                        <span class="arrow">&#10095;</span>
+                    </button>
+                <% } %>
+            </div>
+        <% } %>
+
+        <p class="date"><%= new Date(post.createdAt).toLocaleString("tr-TR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" }) %></p>
+    </div>
+<% }) %>
+
+
         </main>
 
         <%- include("partials/footer") %>

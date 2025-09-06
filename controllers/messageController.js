@@ -100,27 +100,32 @@ exports.deleteMessage = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
-const Image = require("../models/galeri");
+const Post = require("../models/galeri");
 
-// Çoklu resim yükleme
 exports.uploadImages = async (req, res) => {
   try {
     const files = req.files;
+    const text = req.body.text;
 
-    const images = await Promise.all(
-      files.map(async (file) => {
-        const newImage = new Image({
-          filename: file.filename,
-          path: file.path,
-        });
-        await newImage.save();
-        return newImage;
-      })
-    );
-  res.redirect("/moderator");
+    // files dizisini, veritabanına kaydedeceğimiz formatta bir diziye dönüştür
+    const imagesToSave = files.map(file => ({
+      filename: file.filename,
+      path: file.path
+    }));
+
+    // Yeni bir Post nesnesi oluştur ve veritabanına kaydet
+    const newPost = new Post({
+      text: text,
+      images: imagesToSave
+    });
+
+    await newPost.save();
+    
+    // Yükleme başarılı, kullanıcıyı yönlendir
+    res.redirect("/moderator");
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Resim yüklenirken hata oluştu" });
+    res.status(500).json({ message: "Gönderi yüklenirken hata oluştu" });
   }
 };
 

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {getLoginPage, getİndexPage,getMontessoriPage, getWaldorfPage, getMotorBeceriPage, getStemPage, getBlogsPage, getHakkimizdaPage, getIletisimPage } = require("../controllers/pageController");
+const {getDuyurularPage, getLoginPage, getİndexPage,getMontessoriPage, getWaldorfPage, getMotorBeceriPage, getStemPage, getBlogsPage, getHakkimizdaPage, getIletisimPage } = require("../controllers/pageController");
 
 // Ana sayfa
 router.get("/", getİndexPage);
@@ -12,5 +12,5 @@ router.get("/blog-stem", getStemPage);
 router.get("/blogS", getBlogsPage);
 router.get("/hakkimizda", getHakkimizdaPage);
 router.get("/iletisim", getIletisimPage);
-
+router.get("/duyurular", getDuyurularPage);
 module.exports = router;

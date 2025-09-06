@@ -104,3 +104,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
+           // Slider kontrol
+        function moveSlider(direction, postIndex) {
+            const wrapper = document.getElementById(`slider-wrapper-${postIndex}`);
+            const scrollAmount = wrapper.clientWidth * direction;
+            wrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }

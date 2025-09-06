@@ -1,6 +1,6 @@
 const e = require("express");
 const User = require('../models/User');
-
+const { Announcement, AnnouncementIMG } = require("../models/Announcement");
 const WeeklyFiles = require("../models/WeeklyFiles");
 
 exports.getLoginPage = (req, res) => {
@@ -17,7 +17,20 @@ exports.getİndexPage = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
+exports.getDuyurularPage = async (req, res) => {
+    try {
 
+    const users = await User.find();
+        const announcements = await Announcement.find().sort({ createdAt: -1 });
+        const announcementsIMG = await AnnouncementIMG.find().sort({ createdAt: -1 });
+        const user = req.user;
+        const weeklyFiles = await WeeklyFiles.findOne().sort({ uploadedAt: -1 });
+        res.render('duyurular', { user, weeklyFiles, announcements, announcementsIMG ,users});
+    } catch (error) {
+        console.error('Error rendering Duyurular page:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
 exports.getMontessoriPage = async (req, res) => {
     try {
         const user = req.user;

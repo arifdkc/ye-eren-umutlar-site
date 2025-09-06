@@ -35,9 +35,12 @@ app.use(async (req, res, next) => {
   const weeklyFiles = await WeeklyFiles.findOne().sort({ uploadedAt: -1 });
   res.locals.weeklyFiles = weeklyFiles; // Tüm view'larda erişilebilir olacak
   res.locals.user = req.session.user || null; // Tüm view'larda user bilgisine erişilebilir olacak
-  
-      const images = await Image.find().sort({ uploadedAt: -1 });
-      res.locals.images = images; // Tüm view'larda erişilebilir olacak 
+  const Post = require("./models/galeri");
+      const posts = await Post.find().sort({ createdAt: -1 });
+      res.locals.posts = posts; // Tüm view'larda erişilebilir olacak
+     const { AnnouncementIMG } = require("./models/Announcement");
+  const announcements = await AnnouncementIMG.find().sort({ createdAt: -1 });
+      res.locals.announcements = announcements; // Tüm view'larda erişilebilir olacak
   next();
 });
 

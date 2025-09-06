@@ -2,7 +2,8 @@
     <div class="container header-container">
         <div class="logo">
             <a href="/">
-                <img src="/images/yeni-umutlar-logo.png" alt="Yeni Umutlar Anaokulu Logo" width="180" height="80">
+                <img src="/images/yeseren-umutlar-anaokulu-logo.png" alt="Yeşeren Umutlar Anaokulu Logo" width="180"
+                    height="80">
             </a>
         </div>
         <button class="mobile-menu-button" aria-label="Mobile Menu">
@@ -26,26 +27,32 @@
                 <li><a href="/blogs">Etkinlikler</a></li>
                 <li><a href="/hakkimizda">Hakkımızda</a></li>
                 <li><a href="/iletisim">İletişim</a></li>
-
+                <li><a href="/duyurular">Duyurular</a></li>
                 <li><a href="/uploads/<%= weeklyFiles.schedulePdf %>" target="_blank">Ders Programı</a></li>
 
                 <li><a href="/uploads/<%= weeklyFiles.menuPdf %>" target="_blank">Yemek Listesi</a></li>
 
-
-
                 <% if (user) { %>
-                    <li>
-                        <form action="/auth/logout" method="POST">
-                            <button type="submit">Çıkış Yap</button>
-                        </form>
-                    </li>
-                    <% } else { %>
-                        <li>
-                            <form action="/login" method="GET">
-                                <button type="submit">Giriş Yap</button>
-                            </form>
-                        </li>
-                        <% } %>
+                    <li><a href="/users">Profilim</a></li>
+                    <% } %>
+
+
+
+
+                       <% if (user) { %>
+    <li>
+        <a href="/auth/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Çıkış Yap
+        </a>
+        <form id="logout-form" action="/auth/logout" method="POST" style="display: none;"></form>
+    </li>
+<% } else { %>
+    <li>
+        <a href="/login">Giriş Yap</a>
+    </li>
+<% } %>
+
+
             </ul>
 
 </header>

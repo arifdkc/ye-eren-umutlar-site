@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<%- include("partials/head") %>
+  <link rel="stylesheet" href="/css/duyurular.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<%- include("partials/navbar") %>
+  <main class="container-fluid">
+    <section class="card-fluid announcements-section">
+      <h2 class="section-title"><i class="fas fa-bullhorn"></i> Duyurular</h2>
+      <ul class="announcement-list">
+        <% if (announcementsIMG.length > 0) { %>
+          <% announcementsIMG.forEach(a => { %>
+            <li class="announcement-item">
+              <div class="announcement-content">
+                <strong class="announcement-title"><%= a.title %></strong>
+                <p class="announcement-description"><%= a.description %></p>
+                <% if (a.image) { %>
+                  <div class="announcement-image-container">
+                    <img src="/uploads/<%= a.image %>" alt="<%= a.title %>">
+                  </div>
+                <% } %>
+              </div>
+              <p class="date"><%= a.createdAt.toLocaleDateString() %></p>
+              <% if(users.role === 'admin' || users.role === 'moderator'){ %>
+              <form action="/announcementIMG/<%= a._id %>" method="POST" class="delete-form">
+                <button type="submit" class="delete-button"
+                  onclick="return confirm('Bu duyuruyu silmek istediğinize emin misiniz?')">
+                  <i class="fas fa-trash-alt"></i> Sil
+                </button>
+              </form>
+              <% } %>
+            </li>
+          <% }) %>
+        <% } else { %>
+          <p class="no-content">Henüz etkinlik duyurusu yayınlanmadı.</p>
+        <% } %>
+      </ul>
+    </section>
+  </main>
+<%- include("partials/footer") %>
+<script src="/js/script.js"></script>
+</body>
+</html>

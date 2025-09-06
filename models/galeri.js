@@ -1,9 +1,20 @@
+const { text } = require("express");
 const mongoose = require("mongoose");
 
+// Resimler için ayrı bir şema
 const imageSchema = new mongoose.Schema({
-  filename: { type: String, required: true },
-  path: { type: String, required: true },
-  uploadedAt: { type: Date, default: Date.now },
+  filename: String,
+  path: String
 });
 
-module.exports = mongoose.model("Image", imageSchema);
+// Gönderi (Post) için ana şema
+const postSchema = new mongoose.Schema({
+  text: String,
+  images: [imageSchema], // images dizisi, imageSchema tipinde nesneler içerecek
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+module.exports = mongoose.model('Post', postSchema);

@@ -1,7 +1,7 @@
 const { Announcement, AnnouncementIMG } = require("../models/Announcement");
 const User = require('../models/User');
 const Message = require("../models/Message");
-
+const Post = require("../models/galeri");
 exports.getModeratorPanel = async (req, res) => {
   try {
     // req.user token'dan geliyor (JWT)
@@ -69,14 +69,34 @@ exports.getModeratorPanel = async (req, res) => {
   }
 };
 
-
 exports.addImage = async (req, res) => {
   try {
-    const { userId, image } = req.body;
-    await User.findByIdAndUpdate(userId, { $push: { images: image } });
+    console.log("req.body:", req.body);   // text alanları burada
+    console.log("req.files:", req.files); // dosyalar burada
+
+    const { text } = req.body; // Formdan gelen yazı
+   const imageObjects = req.files.map(file => ({ filename: file.filename }));
+
+const newPost = new Post({
+  text,
+  images: imageObjects,
+  createdAt: new Date()
+});
+    await newPost.save();
+
     res.redirect("/moderator");
   } catch (error) {
+    console.error(error);
     res.status(500).send(error.message);
   }
 };
-
+exports.deleteImage = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Post.findByIdAndDelete(id);
+    res.redirect("/users");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Bir hata oluştu.");
+  }
+};
