@@ -70,7 +70,9 @@ app.use("/moderator", moderatorRoutes);
 app.use("/messages", messageRoutes);
 app.use("/payments", paymentRoutes);
 app.use("/users", userRoutes);
-
+app.use((req, res, next) => {
+  res.status(404).render("404", { title: "Sayfa Bulunamadı" });
+});
 
 // =================== Server ===================
 const PORT = process.env.PORT || 9000;

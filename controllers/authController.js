@@ -6,27 +6,41 @@ const { Announcement, AnnouncementIMG } = require("../models/Announcement");
 const { name } = require('ejs');
 const WeeklyFiles = require("../models/WeeklyFiles");
 // --- Login ---
+// --- Login ---
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'Kullanıcı bulunamadı' });
+    if (!user) {
+      return res.render("login", { error: "Kullanıcı bulunamadı", email });
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: 'Şifre yanlış' });
+    if (!isMatch) {
+      return res.render("login", { error: "Şifre yanlış", email });
+    }
 
-    const token = jwt.sign({ id: user._id, role: user.role , className: user.className, name: user.name, profileImage: user.profileImage }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign(
+      {
+        id: user._id,
+        role: user.role,
+        className: user.className,
+        name: user.name,
+        profileImage: user.profileImage,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
 
-    res.cookie('token', token, { httpOnly: true, maxAge: 24*60*60*1000 });
+    res.cookie("token", token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
 
-    // Hem görselli hem görselsiz duyuruları çek
- 
-   res.redirect('/users');
+    res.redirect("/users");
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.render("login", { error: "Bir hata oluştu. Tekrar deneyin." });
   }
 };
+
 exports.getLoginPage = (req, res) => {
   res.render("login", { title: "Yeni Umutlar Anaokulu" });
 } ;
