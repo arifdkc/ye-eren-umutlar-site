@@ -27,10 +27,32 @@
 
         <form action="/auth/login" method="POST">
             <input type="email" name="email" placeholder="Email" value="<%= typeof email !== 'undefined' ? email : '' %>" required>
-            <input type="password" name="password" placeholder="Şifre" required>
+      <div class="password-container">
+    <input type="password" name="password" id="password" placeholder="Şifre" required>
+    <button type="button" id="togglePassword">
+        <i class="fas fa-eye"></i>
+    </button>
+</div>
+
             <button type="submit">Giriş Yap</button>
         </form>
     </div>
     <script src="/js/scripts.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => {
+    const passwordInput = document.getElementById('password');
+    const togglePassword = document.getElementById('togglePassword');
+
+    if (passwordInput && togglePassword) {
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+
+            // Göz ikonunu değiştir
+            togglePassword.querySelector('i').classList.toggle('fa-eye');
+            togglePassword.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+    }
+});
+</script>
 </body>
 </html>

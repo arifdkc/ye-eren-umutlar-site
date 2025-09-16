@@ -1,36 +1,3 @@
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    let table = document.getElementById("userTable");
-    let rows = Array.from(table.tBodies[0].rows);
-    let perPage = 10; // her sayfada kaç kullanıcı gösterilecek
-    let currentPage = 1;
-
-    function renderTable() {
-        rows.forEach((row, i) => {
-            row.style.display = (i >= (currentPage-1)*perPage && i < currentPage*perPage) ? "" : "none";
-        });
-    }
-
-    function renderPagination() {
-        let totalPages = Math.ceil(rows.length / perPage);
-        let pagination = document.getElementById("pagination");
-        pagination.innerHTML = "";
-        for (let i = 1; i <= totalPages; i++) {
-            let btn = document.createElement("button");
-            btn.innerText = i;
-            btn.onclick = () => {
-                currentPage = i;
-                renderTable();
-            };
-            pagination.appendChild(btn);
-        }
-    }
-
-    renderTable();
-    renderPagination();
-});// Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
     const mainNav = document.querySelector('.main-nav');

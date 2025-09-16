@@ -8,7 +8,7 @@ const { getModeratorPanel, addImage, deleteImage } = require("../controllers/mod
 router.get("/", authCookieMiddleware, moderatorMiddleware, getModeratorPanel);
 
 // Görsel ekleme
-router.post("/add-image", upload.array("images", 10), authCookieMiddleware, moderatorMiddleware, addImage);
+router.post("/add-image", upload.array("images", 10), moderatorMiddleware, authCookieMiddleware, addImage);
 
 // Görsel silme
 router.post("/delete-post/:id", authCookieMiddleware, moderatorMiddleware, deleteImage);
