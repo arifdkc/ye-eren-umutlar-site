@@ -46,22 +46,27 @@
                                         </li>
                                         <% } %>
                 </ul>
-            </section>
+    </section>
 <% posts.forEach((post, index) => { %>
     <div class="post-container">
-        <p class="post-text"><%= post.text %></p>
+        <% if (post.text) { %>
+            <p class="post-text"><%= post.text %></p>
+        <% } %>
 
-        <% if (post.images.length > 0) { %>
+        <% if (post.images && post.images.length > 0) { %>
             <div class="slider-container">
                 <div class="slider-wrapper" id="slider-wrapper-<%= index %>">
                     <% post.images.forEach(image => { %>
                         <div class="slider-image-wrapper">
-                            <img src="/uploads/<%= image.filename %>" class="slider-image">
-                            <a href="/uploads/<%= image.filename %>" download class="download-button">📥 İndir</a>
-                            <% if (user.role==='moderator') { %>
+                            <img src="<%= image.url %>" class="slider-image">
+                            <a href="<%= image.url %>" download class="download-button">📥 İndir</a>
+                            
+                            <% if (user && user.role === 'moderator') { %>
                                 <form action="/moderator/delete-post/<%= post._id %>" method="POST"
                                     onsubmit="return confirm('Bu postu silmek istediğinizden emin misiniz?');">
-                                    <button type="submit" class="delete-btn"><i class="fas fa-trash-alt"></i> Sil</button>
+                                    <button type="submit" class="delete-btn">
+                                        <i class="fas fa-trash-alt"></i> Sil
+                                    </button>
                                 </form>
                             <% } %>
                         </div>
@@ -79,7 +84,15 @@
             </div>
         <% } %>
 
-        <p class="date"><%= new Date(post.createdAt).toLocaleString("tr-TR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" }) %></p>
+        <p class="date">
+            <%= new Date(post.createdAt).toLocaleString("tr-TR", { 
+                day: "2-digit", 
+                month: "2-digit", 
+                year: "2-digit", 
+                hour: "2-digit", 
+                minute: "2-digit" 
+            }) %>
+        </p>
     </div>
 <% }) %>
 

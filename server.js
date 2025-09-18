@@ -35,9 +35,7 @@ app.use(async (req, res, next) => {
   const weeklyFiles = await WeeklyFiles.findOne().sort({ uploadedAt: -1 });
   res.locals.weeklyFiles = weeklyFiles; // Tüm view'larda erişilebilir olacak
   res.locals.user = req.session.user || null; // Tüm view'larda user bilgisine erişilebilir olacak
-  const Post = require("./models/galeri");
-      const posts = await Post.find().sort({ createdAt: -1 });
-      res.locals.posts = posts; // Tüm view'larda erişilebilir olacak
+ // Tüm view'larda erişilebilir olacak
      const { AnnouncementIMG } = require("./models/Announcement");
   const announcements = await AnnouncementIMG.find().sort({ createdAt: -1 });
       res.locals.announcements = announcements; // Tüm view'larda erişilebilir olacak
@@ -70,6 +68,9 @@ app.use("/moderator", moderatorRoutes);
 app.use("/messages", messageRoutes);
 app.use("/payments", paymentRoutes);
 app.use("/users", userRoutes);
+const galeriRoutes = require("./routes/galeriRoutes");
+app.use("/galeri", galeriRoutes);
+
 app.use((req, res, next) => {
   res.status(404).render("404", { title: "Sayfa Bulunamadı" });
 });

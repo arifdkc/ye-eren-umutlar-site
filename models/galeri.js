@@ -1,20 +1,18 @@
-const { text } = require("express");
 const mongoose = require("mongoose");
 
-// Resimler için ayrı bir şema
 const imageSchema = new mongoose.Schema({
-  filename: String,
-  path: String
+  public_id: String, // Cloudinary dosya ID'si
+  url: String        // Cloudinary URL'si
 });
 
-// Gönderi (Post) için ana şema
 const postSchema = new mongoose.Schema({
   text: String,
-  images: [imageSchema], // images dizisi, imageSchema tipinde nesneler içerecek
+  images: [imageSchema],
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  className: String
 });
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model("Post", postSchema);
