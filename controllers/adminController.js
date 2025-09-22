@@ -211,16 +211,14 @@ const e = require('express');
 
 exports.uploadWeeklyFiles = async (req, res) => {
   try {
-    const scheduleFile = req.files['schedulePdf'] ? req.files['schedulePdf'][0].filename : null;
     const menuFile = req.files['menuPdf'] ? req.files['menuPdf'][0].filename : null;
 
-    if (!scheduleFile && !menuFile) {
+    if (!menuFile) {
       return res.status(400).send("Dosya yüklenmedi");
     }
 
     // DB kaydı
     await WeeklyFiles.create({
-      schedulePdf: scheduleFile,
       menuPdf: menuFile
     });
 

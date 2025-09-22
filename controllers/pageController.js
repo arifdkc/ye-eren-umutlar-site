@@ -108,4 +108,14 @@ exports.getIletisimPage = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
+exports.getAnaokuluSecimPage = async (req, res) => {
+    try {
+        const user = req.user;
+        const weeklyFiles = await WeeklyFiles.findOne().sort({ uploadedAt: -1 });
+        res.render('blog-anaokuluSecimi', { user, weeklyFiles });
+    } catch (error) {
+        console.error('Error rendering Iletisim page:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
 

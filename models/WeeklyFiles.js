@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 
 const weeklyFilesSchema = new mongoose.Schema({
-  schedulePdf: { type: String },
+
   menuPdf: { type: String },
   uploadedAt: { type: Date, default: Date.now }
 });
