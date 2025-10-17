@@ -1,0 +1,160 @@
+<!-- views/privacy.ejs -->
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title><%= siteName %> - Gizlilik Politikası</title>
+    <meta name="description" content="<%= siteName %> gizlilik politikası ve çerez kullanımı hakkında bilgiler." />
+    <!-- İsteğe bağlı: site CSS dosyası -->
+    <link rel="stylesheet" href="/css/privacy.css" />
+    <style>
+      /* Basit stil, dilersen kaldır veya değiştir */
+      body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.6; color:#111; background:#fff; padding:24px; }
+      .container{ max-width:900px; margin:0 auto; }
+      header{ margin-bottom:20px; }
+      h1{ font-size:1.8rem; margin-bottom:8px; }
+      .meta{ color:#666; font-size:.95rem; margin-bottom:24px; }
+      section{ margin-bottom:18px; }
+      pre.notice{ background:#f7f7f9; padding:12px; border-left:4px solid #e3e3e3; }
+      footer{ margin-top:32px; color:#666; font-size:.9rem; border-top:1px solid #eee; padding-top:12px; }
+      .consent { position: fixed; left: 16px; right:16px; bottom: 16px; background: #fff; border: 1px solid #ddd; padding:12px; box-shadow:0 6px 24px rgba(0,0,0,.08); display:flex; gap:12px; align-items:center; justify-content:space-between; max-width:1100px; margin:0 auto; }
+      .consent button { padding:8px 12px; border-radius:6px; border:1px solid #ccc; background:#f6f6f6; cursor:pointer; }
+      .consent .accept { background:#0b76ef; color:#fff; border-color:#0b76ef; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Gizlilik Politikası</h1>
+        <div class="meta">Son güncelleme: <strong><%= lastUpdated %></strong></div>
+        <p><%= siteName %> ("biz", "sitemiz") ziyaretçilerimizin gizliliğine önem verir. Bu sayfada sitemizde toplanan bilgilerin türleri, kullanım amacı ve kullanıcı hakları açıklanmaktadır.</p>
+      </header>
+
+      <section>
+        <h2>1. Hangi Bilgileri Topluyoruz?</h2>
+        <p>Web sitemiz aracılığıyla aşağıdaki bilgi türleri toplanabilir:</p>
+        <ul>
+          <li><strong>İletişim bilgileri:</strong> İletişim formu yoluyla sağlanan ad, e-posta, telefon gibi bilgiler.</li>
+          <li><strong>Teknik veriler:</strong> IP adresi (anonimleştirilebilir), tarayıcı türü, sayfa görüntülemeleri, erişim zamanı gibi anonim kullanım verileri.</li>
+          <li><strong>Çerezler (cookies):</strong> Site deneyimini geliştirmek ve temel analitik/reklam amaçları için çerezler kullanılabilir.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>2. Bilgiler Nasıl Kullanılır?</h2>
+        <p>Toplanan bilgiler şu amaçlarla kullanılır:</p>
+        <ul>
+          <li>Ziyaretçi taleplerine cevap vermek (ör. iletişim formu üzerinden gelen sorular).</li>
+          <li>Hizmetlerimizi ve web sitemizin işleyişini iyileştirmek.</li>
+          <li>Site güvenliğini sağlamak ve kötüye kullanımı engellemek.</li>
+          <% if (usesAdsense) { %>
+            <li>Google AdSense vb. reklam hizmetleri aracılığıyla reklam göstermek.</li>
+          <% } %>
+          <% if (usesAnalytics) { %>
+            <li>Google Analytics vb. araçlarla anonim olarak kullanım analizleri gerçekleştirmek.</li>
+          <% } %>
+        </ul>
+      </section>
+
+      <section>
+        <h2>3. Çerezler (Cookies)</h2>
+        <p>Çerezler, kullanıcı deneyimini iyileştirmek için tarayıcınıza yerleştirilen küçük metin dosyalarıdır. Kullanıcılar çerezleri tarayıcı ayarlarından engelleyebilir veya silebilir; ancak bunun bazı site özelliklerinin çalışmasını etkileyebileceğini unutmayın.</p>
+        <p>Eğer kullandığımız üçüncü taraf hizmetleri (ör. Google) çerez kullanıyorsa, bu çerezler üçüncü taraf politikalarına tabidir.</p>
+      </section>
+
+      <section>
+        <h2>4. Üçüncü Taraf Hizmet Sağlayıcılar</h2>
+        <p>Web sitemiz, bazı üçüncü taraf hizmetleri kullanabilir. Bu hizmetler kendi gizlilik politikalarına sahiptir ve bu hizmetlerin nasıl veri işlediğini ilgili sağlayıcının politikalarından öğrenebilirsiniz.</p>
+        <ul>
+          <% if (usesAnalytics) { %>
+            <li>Google Analytics — site trafiğini anonim olarak analiz etmek için kullanılmaktadır.</li>
+          <% } %>
+          <% if (usesAdsense) { %>
+            <li>Google AdSense — sitede reklam göstermek için kullanılabilir. Google'ın reklam ve kişiselleştirme ayarları için kullanıcılar <a href="https://adssettings.google.com" target="_blank" rel="noopener">reklam ayarlarını</a> kontrol edebilir.</li>
+          <% } %>
+        </ul>
+      </section>
+
+      <section>
+        <h2>5. Bilgi Güvenliği</h2>
+        <p>Toplanan kişisel veriler uygun güvenlik önlemleri ile saklanır. Ancak internet üzerinden veri iletimi tamamen güvenli olmayabilir; bu nedenle hassas bilgileri (ör. kimlik numarası, banka bilgileri vb.) site üzerinden paylaşmamanızı öneririz.</p>
+      </section>
+
+      <section>
+        <h2>6. Kullanıcının Hakları</h2>
+        <p>Kullanıcılar; kişisel verilerine erişme, düzeltme, silme ve işlemeye itiraz etme haklarına sahiptir. Bu talepler için lütfen iletişime geçin:</p>
+        <pre class="notice"><strong>E-posta:</strong> <%= email %>  |  <strong>Telefon:</strong> <%= phone %></pre>
+        <% if (address) { %>
+          <p><strong>Adres:</strong> <%= address %></p>
+        <% } %>
+      </section>
+
+      <section>
+        <h2>7. İletişim</h2>
+        <p>Bu gizlilik politikası veya kişisel verilerinizle ilgili talepleriniz için bize aşağıdaki yöntemlerle ulaşabilirsiniz:</p>
+        <ul>
+          <li>E-posta: <a href="mailto:<%= email %>"><%= email %></a></li>
+          <li>Telefon: <%= phone %></li>
+          <% if (address) { %><li>Adres: <%= address %></li><% } %>
+        </ul>
+      </section>
+
+      <footer>
+        <p>© <%= (new Date()).getFullYear() %> <strong><%= siteName %></strong> | Tüm hakları saklıdır.</p>
+        <p>Bu sayfada yapılan değişiklikler sayfanın üst kısmındaki "Son güncelleme" tarihine yansıtılacaktır.</p>
+      </footer>
+    </div>
+
+    <!-- Basit çerez onayı (cookie consent) - Opsiyonel -->
+    <div id="cookieConsent" class="consent" style="display:none;">
+      <div>
+        <strong><%= siteName %></strong> çerezleri ve benzeri teknolojileri kullanır. Bu, site deneyimini geliştirmek ve analiz/reklam amaçlıdır.
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button id="declineCookies">Reddet</button>
+        <button id="acceptCookies" class="accept">Kabul Et</button>
+      </div>
+    </div>
+
+    <script>
+      // Basit cookie helper
+      function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+          var date = new Date();
+          date.setTime(date.getTime() + (days*24*60*60*1000));
+          expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+      }
+      function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+          var c = ca[i];
+          while (c.charAt(0)==' ') c = c.substring(1,c.length);
+          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+      }
+
+      (function(){
+        var consent = getCookie('site_cookie_consent');
+        if (!consent) {
+          document.getElementById('cookieConsent').style.display = 'flex';
+        }
+        document.getElementById('acceptCookies').addEventListener('click', function(){
+          setCookie('site_cookie_consent','accepted',365);
+          document.getElementById('cookieConsent').style.display = 'none';
+          // Eğer analytics veya adsense kodu varsa burada etkinleştirme yapılabilir
+          // örn: loadAnalytics();
+        });
+        document.getElementById('declineCookies').addEventListener('click', function(){
+          setCookie('site_cookie_consent','declined',365);
+          document.getElementById('cookieConsent').style.display = 'none';
+        });
+      })();
+    </script>
+  </body>
+</html>

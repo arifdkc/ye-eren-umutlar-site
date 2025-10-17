@@ -42,6 +42,18 @@ app.use(async (req, res, next) => {
   next();
 });
 
+// app.js veya routes/privacy.js içinde
+app.get('/gizlilik-politikasi', (req, res) => {
+  res.render('privacy', {
+    siteName: 'Özel Yeşeren Umutlar Anaokulu',
+    lastUpdated: '17 Ekim 2025',
+    email: 'ozelyeserenumutlaranaokulu@gmail.com',
+    phone: '0536 695 18 41',
+    address: 'Demirtaş Sakarya Mah. Hastane Cad. No:39/A, Bursa',
+    usesAnalytics: true,
+    usesAdsense: true
+  });
+});
 
 // =================== View Engine ===================
 app.set("view engine", "ejs");
